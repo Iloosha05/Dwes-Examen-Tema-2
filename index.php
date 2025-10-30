@@ -94,7 +94,7 @@ function imprimirPedido($pedido, $menu) { ?>
 function imprimirUbicaciones($ubicaciones) {
     echo "<ul>";
         foreach($ubicaciones as $nombre => $datos){
-            echo "<li><strong>$nombre</strong>: $datos[direccion]. Telefono: $datos[telefono]. Horario: $datos[horario]</li>";
+            echo "<li><strong>$nombre</strong>: $datos[direccion]. Teléfono: $datos[telefono]. Horario: $datos[horario]</li>";
         }
     echo "</ul>";
 }
