@@ -34,7 +34,7 @@ $ubicaciones = [
     ]
 ];
 
-$pedido = ["Ensalada César", "Pizza Margarita", "Café"];
+$pedido = ["Ensalada César", "Pizza Margarita", "Café", "Gambas"];
 
 // TODO Filtrar platos por disponibilidad, guardando en variable $disponibles
 $disponibles = array_filter($menu, function($articulo){
@@ -47,17 +47,56 @@ $disponibles = array_filter($menu, function($articulo){
 
 // TODO Función para imprimir una lista de artículos con nombre y precio
 function imprimirListaArticulos($articulos){
-
+    foreach($articulos as $articulo){
+        echo "<li>$articulo->nombre. $articulo->precio </li>";
+    }
 }
 
 // TODO Función para imprimir un pedido
-function imprimirPedido($pedido, $menu) {
-
-}
+function imprimirPedido($pedido, $menu) { ?>
+    <table border="1" cellspacing="10" cellpadding="10">
+        <thead>
+            <tr>
+                <th>Artículo</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $total = 0;
+            foreach($pedido as $nombre){
+                $encontrado = false;
+                foreach($menu as $articulo){
+                    if($articulo->nombre === $nombre){
+                        $encontrado = true;
+                        if($articulo->disponibilidad){
+                            echo "<tr><td>$articulo->nombre</td><td>€$articulo->precio </td></tr>";
+                            $total += $articulo->precio;
+                        } else {
+                            echo "<tr><td>$articulo->nombre</td><td>No disponible</td></tr>";
+                        }
+                        break;
+                    }
+                }
+                if(!$encontrado){
+                    echo "<tr><td>$nombre</td><td>No encontrado en el menú</td></tr>";
+                }
+            }?>
+        <tr>
+            <td><strong>Total</strong></td>
+            <td><strong><?php echo $total; ?> €</strong></td>
+        </tr>
+    </tbody>
+</table>
+<?php }
 
 // TODO Función para imprimir las ubicaciones
 function imprimirUbicaciones($ubicaciones) {
-
+    echo "<ul>";
+        foreach($ubicaciones as $nombre => $datos){
+            echo "<li><strong>$nombre</strong>: $datos[direccion]. Telefono: $datos[telefono]. Horario: $datos[horario]</li>";
+        }
+    echo "</ul>";
 }
 
 ?>
